@@ -253,14 +253,14 @@ export default function MissionMap() {
   return (
     <div className="relative h-dvh w-screen overflow-hidden bg-gray-950">
 
-      {/* ── Rotated map layer ── */}
+      {/* ── Perspective-tilted map layer ── */}
       <div
         className="absolute pointer-events-auto"
         style={{
-          inset: "-40%",
-          transform: "rotate(45deg)",
-          transition: "right 0.3s ease",
-          right: `calc(-40% + ${rightOffset}px)`,
+          inset: "-30%",
+          right: `calc(-30% + ${rightOffset}px)`,
+          transformOrigin: "center 70%",
+          transform: "perspective(900px) rotateX(45deg)",
         }}
       >
         <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
