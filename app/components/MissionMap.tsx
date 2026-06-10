@@ -193,10 +193,15 @@ export default function MissionMap() {
         attribution: "© CARTO · © OpenStreetMap contributors",
         subdomains: "abcd",
         maxZoom: 19,
-        keepBuffer: 6,
+        keepBuffer: 12,
         updateWhenIdle: false,
-        updateWhenZooming: false,
+        updateWhenZooming: true,
       }).addTo(map);
+
+      // Force Leaflet to treat the container as larger so it pre-loads
+      // tiles for the full visible area including perspective-revealed edges
+      map.on("moveend zoomend", () => map.invalidateSize());
+      setTimeout(() => map.invalidateSize(), 100);
 
       leafletMap.current = map;
       setMapReady(true);
