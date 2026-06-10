@@ -212,6 +212,7 @@ export default function MissionMap() {
   const leafletMap = useRef<import("leaflet").Map | null>(null);
   const markersRef = useRef<import("leaflet").CircleMarker[]>([]);
 
+  const [mapReady, setMapReady] = useState(false);
   const [year, setYear] = useState(ALL_YEARS[ALL_YEARS.length - 1]);
   const [typeFilter, setTypeFilter] = useState<MarkerType | "all">("all");
   const [statusFilter, setStatusFilter] = useState<Status | "all">("all");
@@ -270,14 +271,18 @@ export default function MissionMap() {
         attributionControl: true,
       });
 
-      // Dark tile layer from CARTO
+      // Dark tile layer — keepBuffer pre-loads surrounding tiles for smooth panning
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
         attribution: "© CARTO · © OpenStreetMap contributors",
         subdomains: "abcd",
         maxZoom: 19,
+        keepBuffer: 6,
+        updateWhenIdle: false,
+        updateWhenZooming: false,
       }).addTo(map);
 
       leafletMap.current = map;
+      setMapReady(true);
     });
 
     return () => {
@@ -289,7 +294,7 @@ export default function MissionMap() {
 
   // ── update markers ────────────────────────────────────────────
   useEffect(() => {
-    if (!leafletMap.current) return;
+    if (!mapReady || !leafletMap.current) return;
 
     let L: typeof import("leaflet");
     import("leaflet").then((mod) => {
@@ -338,7 +343,7 @@ export default function MissionMap() {
         markersRef.current.push(marker);
       });
     });
-  }, [year, typeFilter, statusFilter, leafletMap.current]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [year, typeFilter, statusFilter, mapReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── resize map when panel opens/closes ────────────────────────
   useEffect(() => {
