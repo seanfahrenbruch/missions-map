@@ -176,13 +176,17 @@ export default function MissionMap() {
       delete (L.Icon.Default.prototype as any)._getIconUrl;
       L.Icon.Default.mergeOptions({ iconUrl: "", shadowUrl: "" });
 
+      const worldBounds = L.latLngBounds(L.latLng(-75, -210), L.latLng(85, 210));
+
       const map = L.map(mapRef.current, {
         center: [15, 20],
-        zoom: 2,
-        minZoom: 2,
+        zoom: 3,
+        minZoom: 3,
         maxZoom: 12,
         zoomControl: false,
         attributionControl: true,
+        maxBounds: worldBounds,
+        maxBoundsViscosity: 1.0,
       });
 
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
@@ -259,8 +263,8 @@ export default function MissionMap() {
         style={{
           inset: "-30%",
           right: `calc(-30% + ${rightOffset}px)`,
-          transformOrigin: "center 70%",
-          transform: "perspective(900px) rotateX(45deg)",
+          transformOrigin: "center 60%",
+          transform: "perspective(1200px) rotateX(15deg)",
         }}
       >
         <div ref={mapRef} style={{ width: "100%", height: "100%" }} />
@@ -302,7 +306,7 @@ export default function MissionMap() {
             className="w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold bg-gray-900 text-gray-300 hover:text-white hover:bg-gray-800 border border-gray-700">+</button>
           <button onClick={() => leafletMap.current?.zoomOut()}
             className="w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold bg-gray-900 text-gray-300 hover:text-white hover:bg-gray-800 border border-gray-700">−</button>
-          <button onClick={() => leafletMap.current?.setView([15, 20], 2)}
+          <button onClick={() => leafletMap.current?.setView([15, 20], 3)}
             className="w-10 h-10 rounded-full flex items-center justify-center bg-gray-900 text-gray-300 hover:text-white hover:bg-gray-800 border border-gray-700" title="Reset view">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z" />
