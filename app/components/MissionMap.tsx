@@ -99,7 +99,7 @@ function StatsBar({ typeFilter }: { typeFilter: MarkerType | "all" }) {
   return (
     <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[500] px-5 py-3 rounded-xl bg-gray-950/95 border border-gray-800 text-white shadow-xl backdrop-blur-sm flex gap-5 items-center whitespace-nowrap">
       <div className="text-center">
-        <div className="text-xl font-bold tabular-nums" style={{ color: "#e5427a" }}>{orphans.toLocaleString()}</div>
+        <div className="text-xl font-bold tabular-nums" style={{ color: "#e5472a" }}>{orphans.toLocaleString()}</div>
         <div className="text-[10px] uppercase tracking-wider text-gray-400">Orphans</div>
       </div>
       <div className="w-px h-8 bg-gray-700" />
@@ -285,7 +285,7 @@ export default function MissionMap() {
           {(["all", "site", "people_group", "program"] as const).map((t) => (
             <button key={t} onClick={() => setTypeFilter(t)}
               className={`px-3 py-2 transition-colors cursor-pointer ${typeFilter === t ? "text-white" : "text-gray-400 hover:bg-gray-800 hover:text-white"}`}
-              style={typeFilter === t ? { background: "#e5427a" } : {}}>
+              style={typeFilter === t ? { background: "#e5472a" } : {}}>
               {t === "all" ? "All" : TYPE_CONFIG[t].label}
             </button>
           ))}

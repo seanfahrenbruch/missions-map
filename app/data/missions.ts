@@ -353,7 +353,7 @@ export const MISSIONS: Mission[] = [
 ];
 
 export const STATUS_CONFIG: Record<Status, { label: string; color: string; glow: string }> = {
-  active:   { label: "Active Site",  color: "#e5427a", glow: "rgba(229,66,122,0.35)" },
+  active:   { label: "Active Site",  color: "#e5472a", glow: "rgba(229,66,122,0.35)" },
   upcoming: { label: "Upcoming",     color: "#fcb21c", glow: "rgba(252,178,28,0.35)" },
 };
 
