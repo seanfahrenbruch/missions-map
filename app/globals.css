@@ -13,12 +13,55 @@ body {
   overflow: hidden;
 }
 
-/* Dark attribution control */
+/* Dark attribution */
 .leaflet-control-attribution {
   background: rgba(3,7,18,0.8) !important;
-  color: #6b7280 !important;
+  color: #4b5563 !important;
+  font-size: 9px !important;
 }
-.leaflet-control-attribution a { color: #9ca3af !important; }
+.leaflet-control-attribution a { color: #6b7280 !important; }
+
+/* Glow markers */
+.wc-marker {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.wc-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--clr);
+  opacity: 0.25;
+  animation: wc-pulse 2.4s ease-in-out infinite;
+  filter: blur(4px);
+}
+.wc-dot {
+  position: relative;
+  z-index: 1;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--clr);
+  box-shadow: 0 0 0 2px rgba(3,7,18,0.8), 0 0 12px var(--clr);
+}
+.wc-marker:hover .wc-dot {
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 0 0 2px rgba(3,7,18,0.8), 0 0 20px var(--clr);
+}
+.wc-marker:hover .wc-glow {
+  opacity: 0.45;
+  inset: -4px;
+}
+@keyframes wc-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.25; }
+  50%       { transform: scale(1.5); opacity: 0.1; }
+}
 
 /* Year slider */
 input[type="range"] {
