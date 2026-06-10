@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 :root {
   --background: #030712;
@@ -12,19 +13,12 @@ body {
   overflow: hidden;
 }
 
-/* MapLibre popup overrides */
-.mission-hover-popup .maplibregl-popup-content {
-  background: #111827;
-  border: 1px solid #374151;
-  border-radius: 10px;
-  padding: 0;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.7);
+/* Dark attribution control */
+.leaflet-control-attribution {
+  background: rgba(3,7,18,0.8) !important;
+  color: #6b7280 !important;
 }
-
-.mission-hover-popup .maplibregl-popup-tip {
-  border-top-color: #374151 !important;
-  border-bottom-color: #374151 !important;
-}
+.leaflet-control-attribution a { color: #9ca3af !important; }
 
 /* Year slider */
 input[type="range"] {
