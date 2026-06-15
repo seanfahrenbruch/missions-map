@@ -164,15 +164,6 @@ export default function MissionMap() {
       if (cancelled || !mapContainer.current) return;
       const maplibregl = mod.default;
 
-      // Inject MapLibre CSS once
-      if (!document.getElementById("maplibre-css")) {
-        const link = document.createElement("link");
-        link.id = "maplibre-css";
-        link.rel = "stylesheet";
-        link.href = "https://unpkg.com/maplibre-gl@5/dist/maplibre-gl.css";
-        document.head.appendChild(link);
-      }
-
       let m: import("maplibre-gl").Map;
       try {
         m = new maplibregl.Map({
@@ -240,8 +231,8 @@ export default function MissionMap() {
 
       m.on("load", () => {
         if (cancelled) { m.remove(); return; }
-        // Activate 3D terrain
-        m.setTerrain({ source: "terrain", exaggeration: 1.8 });
+        // 3D terrain — non-blocking, ignore if DEM tiles unavailable
+        try { m.setTerrain({ source: "terrain", exaggeration: 1.8 }); } catch { /* no terrain */ }
         mapRef.current = m;
         setMapReady(true);
       });
