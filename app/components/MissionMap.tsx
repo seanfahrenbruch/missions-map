@@ -162,7 +162,8 @@ export default function MissionMap() {
 
     import("maplibre-gl").then((mod) => {
       if (cancelled || !mapContainer.current) return;
-      const { Map: MLMap, Marker: MLMarker } = mod;
+      const lib = (mod.default ?? mod) as typeof import("maplibre-gl");
+      const MLMap = lib.Map;
 
       let m: import("maplibre-gl").Map;
       try {
@@ -186,7 +187,7 @@ export default function MissionMap() {
                 type: "raster-dem",
                 tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
                 tileSize: 256,
-                encoding: "terrarium" as "terrarium",
+                encoding: "terrarium" as const,
                 maxzoom: 12,
               },
             },
@@ -252,7 +253,8 @@ export default function MissionMap() {
     if (!mapReady || !mapRef.current) return;
 
     import("maplibre-gl").then((mod) => {
-      const { Marker: MLMarker } = mod;
+      const lib = (mod.default ?? mod) as typeof import("maplibre-gl");
+      const MLMarker = lib.Marker;
       if (!mapRef.current) return;
 
       markersRef.current.forEach((mk) => mk.remove());
