@@ -162,11 +162,11 @@ export default function MissionMap() {
 
     import("maplibre-gl").then((mod) => {
       if (cancelled || !mapContainer.current) return;
-      const maplibregl = mod.default;
+      const { Map: MLMap, Marker: MLMarker } = mod;
 
       let m: import("maplibre-gl").Map;
       try {
-        m = new maplibregl.Map({
+        m = new MLMap({
           container: mapContainer.current!,
           style: {
             version: 8,
@@ -252,7 +252,7 @@ export default function MissionMap() {
     if (!mapReady || !mapRef.current) return;
 
     import("maplibre-gl").then((mod) => {
-      const maplibregl = mod.default;
+      const { Marker: MLMarker } = mod;
       if (!mapRef.current) return;
 
       markersRef.current.forEach((mk) => mk.remove());
@@ -270,7 +270,7 @@ export default function MissionMap() {
           el.innerHTML = `<div class="wc-glow"></div><div class="wc-dot"></div>`;
           el.addEventListener("click", () => setSelectedMission(mission));
 
-          const marker = new maplibregl.Marker({ element: el, anchor: "center" })
+          const marker = new MLMarker({ element: el, anchor: "center" })
             .setLngLat([mission.lng, mission.lat])
             .addTo(mapRef.current!);
 
